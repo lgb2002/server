@@ -12,19 +12,19 @@ from wsgiref.util import FileWrapper
 from django.views.decorators.csrf import csrf_exempt
 import io, sys, csv, os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-creds = ""
 try:
 	import argparse
 	flags = tools.argparser.parse_args([])
 except ImportError:
 	flags = None
 SCOPES = 'https://www.googleapis.com/auth/drive.file'
+
+static_dir = os.getcwd()
+if(os.getcwd()[-1]!="r"):
+	static_dir += "/server"
 print(os.getcwd())
-print(BASE_DIR)
-CLIENT_SECRET_FILE = os.getcwd()+'/gmsserver/client_secret.json'
-CREDENTIAL_FILENAME = os.getcwd()+'/gmsserver/drive-python-upload.json'
+CLIENT_SECRET_FILE = static_dir+'/gmsserver/client_secret.json'
+CREDENTIAL_FILENAME = static_dir+'/gmsserver/drive-python-upload.json'
 store = file.Storage(CREDENTIAL_FILENAME)
 creds = store.get()
 if not creds or creds.invalid:
@@ -52,7 +52,7 @@ def find_folder(name):
 
 def file_download(id, name):
 	request = DRIVE.files().get_media(fileId=id)
-	f = open(os.getcwd()+"/download/"+name,'wb')
+	f = open(static_dir+"/gmsserver/download/"+name,'wb')
 	wr = csv.writer(f)
 	downloader = MediaIoBaseDownload(f, request)
 	done = False
