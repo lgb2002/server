@@ -12,6 +12,8 @@ from wsgiref.util import FileWrapper
 from django.views.decorators.csrf import csrf_exempt
 import io, sys, csv, os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 creds = ""
 try:
 	import argparse
@@ -20,6 +22,7 @@ except ImportError:
 	flags = None
 SCOPES = 'https://www.googleapis.com/auth/drive.file'
 print(os.getcwd())
+print(BASE_DIR)
 CLIENT_SECRET_FILE = os.getcwd()+'/gmsserver/client_secret.json'
 CREDENTIAL_FILENAME = os.getcwd()+'/gmsserver/drive-python-upload.json'
 store = file.Storage(CREDENTIAL_FILENAME)
