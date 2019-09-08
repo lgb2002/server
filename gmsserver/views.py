@@ -22,7 +22,7 @@ SCOPES = 'https://www.googleapis.com/auth/drive.file'
 static_dir = os.getcwd()
 if(os.getcwd()[-1]!="r"):
 	static_dir += "/server"
-print(os.getcwd())
+print(static_dir+'/gmsserver')
 CLIENT_SECRET_FILE = static_dir+'/gmsserver/client_secret.json'
 CREDENTIAL_FILENAME = static_dir+'/gmsserver/drive-python-upload.json'
 store = file.Storage(CREDENTIAL_FILENAME)
