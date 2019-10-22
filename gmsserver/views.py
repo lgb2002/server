@@ -9,7 +9,9 @@ from apiclient.http import MediaFileUpload
 from googleapiclient.http import MediaIoBaseDownload
 from wsgiref.util import FileWrapper
 from django.views.decorators.csrf import csrf_exempt
-import io, sys, csv, os, json
+import io, sys, csv, os, json, requests, re
+import pandas as pd
+from pandas import Series, DataFrame
 
 try:
 	import argparse
@@ -51,6 +53,27 @@ def find_folder(name):
 #폴더 및 파일 찾기
 
 path_dir = "https://www.pythonanywhere.com/user/kakao/files/home/kakao/server/gmsserver/download/"
+
+def upload(name, parent_id, file):
+    media_body = MediaFileUpload(file, mimetype='text/csv', resumable=True)
+    body = {
+        'name': name,
+        'mimeType': 'text/csv'
+    }
+    if parent_id:
+        body['parents'] = [{'id': parent_id}]
+    file = DRIVE.files().create(body=body,media_body=media_body).execute()
+#ex) upload(C:/Users/lgb/tf_auto_stock/test.txt','test222')
+#업로드 함수
+
+def create_folder(name):
+    file_metadata = {
+        'name': name,
+        'mimeType': 'application/vnd.google-apps.folder'
+    }
+    file = DRIVE.files().create(body=file_metadata,fields='id').execute()
+    print('Folder ID: %s' % file.get('id'))
+#폴더 생성 함수
 
 def file_download(id, name):
 	request = DRIVE.files().get_media(fileId=id)
