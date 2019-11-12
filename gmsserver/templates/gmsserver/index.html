@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="totalRequest">
+		<form action="crolling" method="POST">
+			{% csrf_token %}
+			<input type="text" name="dateRequest">
+			<button type="submit">Submit</button>
+		</form>
+		<div class="dateResponse">
+			{{ date }}
+		</div>
+	</div>
+	<div class="fileRemoveRequest">
+		<form action="fileRemove" method="POST">
+			{% csrf_token %}
+			<button type="submit">FileRemove</button>
+		</form>
+		<script language="javascript">
+	        var result = "{{ result }}"
+	        if(result == "remove success"){
+	            alert(result);
+	            //location.href='mypage.html' /*opens the target page while Id & userpwd matches*/
+	            result = "none"
+	        }
+		</script>
+	</div>
+	<a href="nowinfo.html">now info</a>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="requestInfo">
+		{% csrf_token %}
+		<div class="totalCrolling">
+			<h1 id="crollingInfo">Crolling Data</h1>
+
+			<h2 id="crollingNowTF"> </h2>
+			<h2 id="crollingTotalNumSum"> </h2>
+			<h2 id="crollingStartTime"> </h2>
+		</div>
+		<div class="nowCrolling">
+			<h2 id="nowNumSum"> </h2>
+			<h2 id="nowCode"> </h2>
+		</div>
+		<script language="javascript">
+	        var crollingNowTF = "{{ crolling_now }}";
+	        if(crollingNowTF == "True"){
+		        var crollingNum = "{{ crolling_num }}";
+		        var crollingSum = "{{ crolling_sum }}";
+		        var crollingStartTime = "{{ crolling_start }}";
+
+		        document.getElementById('crollingNowTF').innerHTML="Now Doing Crolling....";
+		        document.getElementById('crollingTotalNumSum').innerHTML=crollingNum+"/"+crollingSum;
+		        document.getElementById('crollingStartTime').innerHTML=crollingStartTime;
+
+
+		        var nowNum = "{{ now_num }}";
+		        var nowSum = "{{ now_sum }}";
+		        var nowCode = "{{ now_code }}";
+
+		        var result=(nowNum/nowSum);
+
+		        document.getElementById('nowNumSum').innerHTML=nowNum+"/"+nowSum+"="+result.toFixed(4)*100+"%" ;
+		        document.getElementById('nowCode').innerHTML=nowCode;
+	        }
+	        else{
+		        document.getElementById('crollingNowTF').innerHTML = "No Doing Crolling....";
+	        }
+		</script>
+	</div>
+	<form action="nowinfo" method="POST">
+		{% csrf_token %}
+		<button type="submit" value="stop crolling" name="stopCrolling">Stop Crolling</button>
+	</form>
+	<a href="crolling.html">crolling request</a>
+</html>
