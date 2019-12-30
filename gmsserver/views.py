@@ -348,9 +348,9 @@ def download(request):
 	'''
 	if request.method == "POST":
 		data = json.loads(request.body)
-  		name = data['name']
-  		print(str(name))
-		#date=request.POST.get('date')
+		name = data['name']
+		print(name)
+  		#date=request.POST.get('date')
 		#code=request.POST.get('code')
 		#name=request.POST.get('name')
 		#print(str(name)+":"+str(date)+"/"+str(code))
