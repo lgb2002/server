@@ -363,6 +363,13 @@ def download(request):
 		name = str(date)+"-"+str(code)+"c"
 		#print(name)
 		file_download(find_folder(name),name)
+		file_path = static_dir+"/gmsserver/download/"+name+".csv"
+		response = FileResponse(open(file_path, 'rb'))
+		response['Content-Type'] = 'application/octet-stream'
+		response['Content-Disposition'] = 'attachment;filename="{0}"'.format(os.path.basename(file_path))
+		response['Content-Length'] = os.path.getsize(file_path)
+		return response
+		'''
 		with open(static_dir+"/gmsserver/download/"+name+".csv",'r') as t:
 			file_data = t.read()
 		#response =HttpResponse(file_data, content_type="text/csv")
@@ -390,6 +397,7 @@ def download(request):
 		#response_data['data'] = data
 		#return HttpResponse(json.dumps(response_data), content_type="application/json")
 		return HttpResponse(data)
+		'''
 	elif request.method == "GET":
 		date = "20181119"
 		code = "257370"
