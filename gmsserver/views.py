@@ -347,6 +347,10 @@ def download(request):
 	os.remove("gmsserver/download/"+name)
 	'''
 	if request.method == "POST":
+		date=request.POST.get('date')
+		code=request.POST.get('code')
+		name=request.POST.get('name')
+		print(str(name)+":"+str(date)+"/"+str(code))
 		date = "20181119"
 		code = "257370"
 		name = str(date)+"-"+str(code)+"c"
