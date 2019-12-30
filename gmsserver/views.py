@@ -349,14 +349,17 @@ def download(request):
 	if request.method == "POST":
 		data = json.loads(request.body)
 		name = data['name']
-		print(name)
+		code = data['code']
+		date = data['date']
+		print(str(name)+":"+str(date)+"/"+str(code))
+		#json need to be used json.loads syntax
   		#date=request.POST.get('date')
 		#code=request.POST.get('code')
 		#name=request.POST.get('name')
 		#print(str(name)+":"+str(date)+"/"+str(code))
 		#print(request.text)
-		date = "20181119"
-		code = "257370"
+		#date = "20181119"
+		#code = "257370"
 		name = str(date)+"-"+str(code)+"c"
 		#print(name)
 		file_download(find_folder(name),name)
