@@ -360,7 +360,7 @@ def download(request):
 		#print(request.text)
 		#date = "20181119"
 		#code = "257370"
-		name = str(date)+"-"+str(code)+"c"
+		name = str(date)+"-"+str(code)+"h"
 		#print(name)
 		file_download(find_folder(name),name)
 		file_path = static_dir+"/gmsserver/download/"+name+".csv"
