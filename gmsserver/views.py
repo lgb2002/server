@@ -351,6 +351,7 @@ def download(request):
 		code=request.POST.get('code')
 		name=request.POST.get('name')
 		print(str(name)+":"+str(date)+"/"+str(code))
+		print(request.json())
 		date = "20181119"
 		code = "257370"
 		name = str(date)+"-"+str(code)+"c"
