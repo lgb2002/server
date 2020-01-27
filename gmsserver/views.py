@@ -353,7 +353,7 @@ def download(request):
 		date = data['date']
 		datatype = data['type']
 		if datatype == 'h':
-			print(str(name)+":"+str(date)+"/"+str(code))
+			print("<"+str(datatype)+">"+str(name)+":"+str(date)+"/"+str(code))
 			#json need to be used json.loads syntax
 	  		#date=request.POST.get('date')
 			#code=request.POST.get('code')
@@ -371,6 +371,32 @@ def download(request):
 			response['Content-Disposition'] = 'attachment;filename="{0}"'.format(os.path.basename(file_path))
 			response['Content-Length'] = os.path.getsize(file_path)
 			return response
+		elif datatype == 'l':
+			#login
+			print("<"+str(datatype)+">"+str(name)+":"+str(date)+"/"+str(code))
+			#in this case, name is pwd, code is security code, date is login time
+			
+			return response
+		elif datatype == 'i':
+			print(str(name)+":"+str(date)+"/"+str(code))
+			#json need to be used json.loads syntax
+	  		#date=request.POST.get('date')
+			#code=request.POST.get('code')
+			#name=request.POST.get('name')
+			#print(str(name)+":"+str(date)+"/"+str(code))
+			#print(request.text)
+			#date = "20181119"
+			#code = "257370"
+			name = str(date)+"-i"
+			#print(name)
+			file_download(find_folder(name),name)
+			file_path = static_dir+"/gmsserver/download/"+name+".csv"
+			response = FileResponse(open(file_path, 'rb'))
+			response['Content-Type'] = 'application/octet-stream'
+			response['Content-Disposition'] = 'attachment;filename="{0}"'.format(os.path.basename(file_path))
+			response['Content-Length'] = os.path.getsize(file_path)
+			return response
+		'''
 		elif datatype == 'c':
 			print(str(name)+":"+str(date)+"/"+str(code))
 			#json need to be used json.loads syntax
@@ -390,6 +416,7 @@ def download(request):
 			response['Content-Disposition'] = 'attachment;filename="{0}"'.format(os.path.basename(file_path))
 			response['Content-Length'] = os.path.getsize(file_path)
 			return response
+		'''
 		'''
 		with open(static_dir+"/gmsserver/download/"+name+".csv",'r') as t:
 			file_data = t.read()
