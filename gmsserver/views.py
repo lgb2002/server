@@ -352,6 +352,9 @@ def download(request):
 		code = data['code']
 		date = data['date']
 		datatype = data['type']
+		if(code=="" or name=="" or date=="" or datatype==""):
+			warning = "data is blanked"
+			return warning
 		if datatype == 'h':
 			print("<"+str(datatype)+">"+str(name)+":"+str(date)+"/"+str(code))
 			#json need to be used json.loads syntax
@@ -375,7 +378,6 @@ def download(request):
 			#login
 			print("<"+str(datatype)+">"+str(name)+":"+str(date)+"/"+str(code))
 			#in this case, name is pwd, code is security code, date is login time
-			
 			return response
 		elif datatype == 'i':
 			print(str(name)+":"+str(date)+"/"+str(code))
